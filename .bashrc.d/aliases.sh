@@ -1,6 +1,7 @@
 alias quit='exit'
 
 alias rebash='source ~/.bashrc'
+alias retmux='tmux source ~/.config/tmux/tmux.conf'
 
 alias ..='cd ..'
 
@@ -62,6 +63,9 @@ function git_rebase_all_in_branch() {
 }
 
 alias edit-aliases="nvim ~/.bashrc.d/aliases.sh"
+
+# tool aliases
+alias fd='fdfind'
 
 
 # classes
