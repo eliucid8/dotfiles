@@ -69,7 +69,7 @@ build_prompt () {
     if [ "$color_prompt" = yes ]; then
         BASE_PS1="${debian_chroot:+($debian_chroot)}${BLACK_BLUE}\u@\h${BLUE_GREEN}${RIGHT_CIRCLE}${BLACK_GREEN}[\w]${RESET}"
 
-        if [[ ${LAST_STATUS} -ne 0 ]]; then
+        if [[ ${LAST_STATUS} -ne 0 && ${LAST_STATUS} -ne 130 ]]; then
             ERROR_STATUS="${RED}${LEFT_CIRCLE}${BLACK_RED}${ERROR_SYMBOL} ${LAST_STATUS}${RED_BLUE}${PIXELATED}${RESET}"
         else
             ERROR_STATUS="${BLUE}${LEFT_CIRCLE}"
