@@ -27,19 +27,20 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-GREEN='\[\033[92;40m\]'
+# TODO: remove extraneous and make local in function.
+GREEN='\[\033[92;49m\]'
 BLACK_GREEN='\[\033[30;102m\]'
 BLUE_GREEN='\[\033[94;102m\]'
-BLUE='\[\033[94;40m\]'
+BLUE='\[\033[94;49m\]'
 GREEN_BLUE='\[\033[92;104m\]'
 BLACK_BLUE='\[\033[30;104m\]'
 GREEN_YELLOW='\[\033[92;103m\]'
 BLUE_YELLOW='\[\033[94;103m\]'
 BLACK_YELLOW='\[\033[30;103m\]'
-YELLOW='\[\033[93;40m\]'
-RED='\[\033[91;40m\]'
+YELLOW='\[\033[93;49m\]'
+RED='\[\033[91;49m\]'
 BLACK_RED='\[\033[30;101m\]'
-BLUE_RED='\[\033[94;101m\]'
+RED_BLUE='\[\033[91;104m\]'
 RESET='\[\033[00m\]'
 
 # Nerd font powerline symbols
@@ -63,11 +64,13 @@ ERROR_SYMBOL='\356\231\224'
 FANCY_DOLLAR='\357\205\225'
 
 build_prompt () {
+    local LAST_STATUS=$1
+
     if [ "$color_prompt" = yes ]; then
         BASE_PS1="${debian_chroot:+($debian_chroot)}${BLACK_BLUE}\u@\h${BLUE_GREEN}${RIGHT_CIRCLE}${BLACK_GREEN}[\w]${RESET}"
-    
-        if [[ $1 -ne 0 ]]; then
-            ERROR_STATUS="${RED}${LEFT_CIRCLE}${BLACK_RED}${ERROR_SYMBOL} $1${BLUE_RED}${LEFT_CIRCLE}${RESET}"
+
+        if [[ ${LAST_STATUS} -ne 0 ]]; then
+            ERROR_STATUS="${RED}${LEFT_CIRCLE}${BLACK_RED}${ERROR_SYMBOL} ${LAST_STATUS}${RED_BLUE}${PIXELATED}${RESET}"
         else
             ERROR_STATUS="${BLUE}${LEFT_CIRCLE}"
         fi
@@ -86,21 +89,17 @@ build_prompt () {
     fi
     unset color_prompt force_color_prompt
 
-    # If this is an xterm set the title to user@host:dir
-    case "$TERM" in
-    xterm*|rxvt*)
-        echo "\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-        ;;
-    *)
-        ;;
-    esac
-
-    return $1
+    return ${LAST_STATUS}
 }
 
-function prompt_command {
-    RET=$?
-    export PS1=$(build_prompt $RET)
+# set_title: set terminal emulator title (separate from PS1)
+set_title() {
+    # Use hostname -s and shorten $HOME in path for readability
+    local host="$(hostname -s 2>/dev/null || echo '\h')"
+    local dir="${PWD/#$HOME/~}"
+    # This sends the terminal title sequence; it's safe to run every prompt
+    printf '\033]0;%s@%s: %s\007' "${debian_chroot:+($debian_chroot)}${whoami}" "$host" "$dir"
 }
+
 PROMPT_DIRTRIM=3
-export PROMPT_COMMAND=prompt_command
+PROMPT_COMMAND='RET=$?; export PS1="$(build_prompt $RET)"; set_title'
