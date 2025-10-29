@@ -81,9 +81,14 @@ build_prompt () {
             GIT_BRANCH="${GREEN}${RIGHT_TRIANGLE}${RESET}"
         fi
 
+        if [[ $VIRTUAL_ENV ]]; then
+            VENV_DISPLAY=$(basename "$VIRTUAL_ENV")
+            VENV_DISPLAY="${YELLOW}(${VENV_DISPLAY})${RESET} "
+        fi
+
         ARROW_TOP="${BLUE}${DOWN_RIGHT}${LIGHT_HORIZ}${LIGHT_HORIZ}"
         ARROW_BOT="${BLUE}${UP_RIGHT}${LIGHT_HORIZ}${RESET}"
-        echo $"${ARROW_TOP}${ERROR_STATUS}${BASE_PS1}${GIT_BRANCH}\n${ARROW_BOT}$ "
+        echo $"${ARROW_TOP}${ERROR_STATUS}${BASE_PS1}${GIT_BRANCH}\n${ARROW_BOT}${VENV_DISPLAY}$ "
     else
         echo '${debian_chroot:+($debian_chroot)}\u@\h:\w $(parse_git_branch)$ '
     fi
