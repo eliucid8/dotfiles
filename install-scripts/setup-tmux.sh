@@ -1,4 +1,7 @@
-mkdir -p ~/.config/tmux
-ln -s tmux.conf ~/.config/tmux/tmux.conf
+#!/bin/sh
 
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# symlink entire tmux folder into config
+ln -sr tmux ~/.config/tmux
+
+git submodule add https://github.com/tmux-plugins/tpm tmux/plugins/tpm
+# submodule update is called at end of file
