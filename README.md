@@ -8,3 +8,7 @@ but you should be able to add the snippet that sources everything in `.bashrc.d`
 ## tmux
 clone tpm and symlink the contents of `tmux/` to `.config/tmux/`
 should be able to just run `tmux/setup-tmux.sh`
+
+
+## TODO
+nvim is downloaded into the dotfiles folder?
