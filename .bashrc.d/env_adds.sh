@@ -33,4 +33,7 @@ unset __conda_setup
 
 . "$HOME/.cargo/env"
 
+# Add go to path
+export PATH=$PATH:/usr/local/go/bin
+
 export IGNOREEOF=10
