@@ -50,15 +50,6 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# source the rest of custom bashrc files (aliases, env vars, etc.)
-if [ -d ~/.bashrc.d ]; then
-    for file in ~/.bashrc.d/*; do
-        if [ -f "$file" ]; then
-            . "$file"
-        fi
-    done
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -70,3 +61,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# source the rest of custom bashrc files (aliases, env vars, etc.)
+if [ -d ~/.bashrc.d ]; then
+    for file in ~/.bashrc.d/*; do
+        if [ -f "$file" ]; then
+            . "$file"
+        fi
+    done
+fi
