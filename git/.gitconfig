@@ -1,0 +1,9 @@
+[user]
+	email = ericliu1602@gmail.com
+	name = Eric Liu
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+[pull]
+	rebase = false
