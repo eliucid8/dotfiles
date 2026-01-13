@@ -44,6 +44,12 @@
         "Alt"
       ],
       "key": "B"
+    },
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "\\"
     }
   ],
   "app:toggle-right-sidebar": [
@@ -53,6 +59,13 @@
         "Shift"
       ],
       "key": "B"
+    },
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "\\"
     }
   ]
 }

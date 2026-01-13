@@ -1,0 +1,78 @@
+;; $XDG_CONFIG_HOME/kmonad/extend-universal.kbd
+;; Caps: tap -> Backspace, hold -> Extend layer (persistent while held)
+;; Keep Super (lmeta/rmeta) untouched so GNOME Super+Space continues to work.
+
+(defcfg
+  ;; Replace the device-file below with the device file referenced in the $KMONAD_DEVICE environment variable
+  input  (device-file "$KMONAD_DEVICE")
+  output (uinput-sink "kmonad-output")
+  ;; fallthrough true lets unmapped keys fall through to the system
+  fallthrough true
+)
+
+;; --- Physical key names we will use ---
+(defsrc
+  esc f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12
+  grave 1 2 3 4 5 6 7 8 9 0 - = bspc
+  tab q w e r t y u i o p [ ] \
+  caps a s d f g h j k l ; ' ret
+  lshift z x c v b n m , . / rsft
+  lctl lmet lalt spc ralt rmet cmp rctl
+)
+
+;; --- Aliases / tap-hold definitions ---
+;; ext: tap-hold semantics
+;;  - 'tap-hold' waits `timeout(ms)`, if released before timeout -> emit TAP (backspace)
+;;  - if not released before timeout OR if another key is pressed while held -> perform HOLD action.
+;; For HOLD we use (layer-toggle extend) which pushes the named layer and keeps it active while the
+;; key is logically held (momentary / while-held behavior).
+(defalias 
+    ext (tap-hold 100 bspc (layer-toggle extend))
+)
+;; provide a separate extend layer for colemak which allows toggling back to qwerty
+(defalias 
+    extcmk (tap-hold 100 bspc (layer-toggle extend-colemak))
+)
+
+(defalias cmkdh (layer-switch colemak-dh))
+(defalias qwerty (layer-switch base))
+
+;; --- Base layer (minimal; re-export standard keys and the ext alias at the caps position) ---
+(deflayer base
+  esc f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12
+  grave 1 2 3 4 5 6 7 8 9 0 - = bspc
+  tab q w e r t y u i o p [ ] \
+  @ext a s d f g h j k l ; ' ret
+  lshift z x c v b n m , . / rsft
+  lctl lmet lalt spc ralt rmet cmp rctl
+)
+
+;; --- Colemak-dh layer ---
+(deflayer colemak-dh
+  esc f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12
+  grave 1 2 3 4 5 6 7 8 9 0 - = bspc
+  tab q w f p b j l u y ; [ ] \
+  @extcmk a r s t g m n e i o ' ret
+  lshift x c d v z k h , . / rsft
+  lctl lmet lalt spc ralt rmet cmp rctl
+)
+
+;; --- Extend layer: maps i/j/k/l to arrow keys and other goodies ---
+(deflayer extend
+  @cmkdh f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12
+  caps 1 2 3 4 5 6 7 8 9 0 - = bspc
+  tab esc scrup e r t pgup home up end del [ ] \
+  @ext lalt scrdn lshift lctl g pgdn left down right bspc KeyComputer ret
+  lshift M-x M-c BtnLeft M-v b n m , . / rsft
+  lctl lmet lalt ret ralt rmet cmp rctl
+)
+
+(deflayer extend-colemak
+  @qwerty f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12
+  caps 1 2 3 4 5 6 7 8 9 0 - = bspc
+  tab esc scrup _ _ _ pgup home up end del _ _ _
+  @ext lalt scrdn lshift lctl _ pgdn left down right bspc KeyComputer ret
+  lshift M-x M-c BtnLeft M-v _ _ _ _ _ _ rsft
+  lctl lmet lalt   ret   ralt rmet cmp rctl
+)
+
