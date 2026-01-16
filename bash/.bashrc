@@ -61,7 +61,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# source the rest of custom bashrc files (aliases, env vars, etc.)
+# source the rest of custom bashrc files in bashrc.d
 if [ -d ~/.bashrc.d ]; then
     for file in ~/.bashrc.d/*; do
         if [ -f "$file" ]; then
