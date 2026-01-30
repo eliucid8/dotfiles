@@ -16,5 +16,7 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 
+export IGNOREEOF=10
+
 # Make an alias for invoking commands you use constantly
 # alias p='python'
