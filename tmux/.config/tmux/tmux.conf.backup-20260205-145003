@@ -1,27 +1,8 @@
-# ===========
-#   PLUGINS
-# ===========
-# package manager
+# List of plugins
 set -g @plugin 'tmux-plugins/tpm'
-# sensible default settings
 set -g @plugin 'tmux-plugins/tmux-sensible'
-# status bar
-set -g @plugin 'fabioluciano/tmux-powerkit'
-# easy copy/paste
+set -g @plugin "janoamaral/tokyo-night-tmux"
 set -g @plugin 'tmux-plugins/tmux-yank'
-# save/restore sessions
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-
-# ============================================================================
-# Omarchy Tmux Integration (v2.1)
-# Theme profiles persist in ~/.config/tmux/omarchy-themes/
-# Current theme syncs via symlink - DO NOT EDIT THIS SECTION
-# ============================================================================
-source-file ~/.config/tmux/omarchy-current-theme.conf
-# End Omarchy Tmux Integration
-
-# automatically save/restore sessions
-set -g @plugin 'tmux-plugins/tmux-continuum'
 
 # Other examples:
 # set -g @plugin 'github_username/plugin_name'
@@ -47,6 +28,26 @@ setw -g pane-base-index 1
 # Automatically renumber windows
 set -g renumber-windows on
 
+# Theme
+set -g @tokyo-night-tmux_theme night    # storm | day | default to 'night'
+set -g @tokyo-night-tmux_transparent 1  # 1 or 0
+# Icon styles
+set -g @tokyo-night-tmux_terminal_icon 
+set -g @tokyo-night-tmux_active_terminal_icon 
+# No extra spaces between icons
+set -g @tokyo-night-tmux_window_tidy_icons 1
+# Number styles
+set -g @tokyo-night-tmux_window_id_style fsquare
+set -g @tokyo-night-tmux_pane_id_style hsquare
+set -g @tokyo-night-tmux_zoom_id_style dsquare
+# Datetime
+set -g @tokyo-night-tmux_show_datetime 1
+set -g @tokyo-night-tmux_date_format MYD
+set -g @tokyo-night-tmux_time_format 24H
+# Path Widget
+set -g @tokyo-night-tmux_show_path 1
+set -g @tokyo-night-tmux_path_format relative # 'relative' or 'full'
+
 # Vi mode
 set-window-option -g mode-keys vi
 
@@ -55,6 +56,5 @@ bind-key -T copy-mode-vi v send-keys -X begin-selection
 bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
 bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
-
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '$XDG_CONFIG_HOME/tmux/plugins/tpm/tpm'
+run '~/.config/tmux/plugins/tpm/tpm'
