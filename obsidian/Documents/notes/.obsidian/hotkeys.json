@@ -44,12 +44,6 @@
         "Alt"
       ],
       "key": "B"
-    },
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "\\"
     }
   ],
   "app:toggle-right-sidebar": [
@@ -64,6 +58,14 @@
       "modifiers": [
         "Mod",
         "Shift"
+      ],
+      "key": "\\"
+    }
+  ],
+  "file-explorer:reveal-active-file": [
+    {
+      "modifiers": [
+        "Mod"
       ],
       "key": "\\"
     }
