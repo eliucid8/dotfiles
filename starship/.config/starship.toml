@@ -1,6 +1,6 @@
 add_newline = true
 command_timeout = 200
-format = "[$directory$git_branch$git_status]($style)$character"
+format = "[$directory$git_branch$git_status]($style)($python)$character"
 
 [character]
 error_symbol = "[✗](bold cyan)"
@@ -30,3 +30,10 @@ stashed    = ""
 staged     = ""
 renamed    = ""
 deleted    = ""
+
+[python]
+# The default format is: via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\))]($style)
+# This example simplifies it to only show the symbol and the virtualenv name
+symbol = "🐍 "
+style = "bold yellow"
+format = 'via [${symbol}(\($virtualenv\))]($style)'
