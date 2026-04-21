@@ -18,6 +18,7 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# WSL commands
 # cdw: cd to a windows directory
 cdw() { local d=`wslpath "$1"`; cd "$d"; }
 
@@ -67,6 +68,7 @@ function git_rebase_all_in_branch() {
 
 # other tool aliases
 # alias fd='fdfind' # already done in omarchy
+alias ng='nvim +Neogit' # open directly to neogit tui
 
 # classes
 # alias cs310='cd ~/classes/cs310/xv6/  docker run -it --rm --user 0:0 -v $PWD:/home/student/labs mlentz/os-env:amd64'
